@@ -15,61 +15,65 @@ struct EditView: View {
 
   @State var todo: Todo
   
-    var body: some View {
-      VStack {
-        Text("Edit")
-          .font(.title)
-          .frame(alignment:.center)
+  var body: some View {
+    List {
+      Text("Create New Todo")
+        .font(.title)
+        .frame(alignment:.center)
+        .listRowSeparator(.hidden)
+        .padding()
 
-        VStack(alignment: .leading) {
-          Text("Title")
-            .font(.caption)
-          TextField("Title", text: $todo.title, prompt: nil)
-        }.padding().background(.thinMaterial)
-          .cornerRadius(12.0)
+      VStack(alignment: .leading) {
+        Text("Title")
+          .font(.caption)
+        TextField("Title", text: $todo.title, prompt: nil)
+      }.padding().background(.thinMaterial)
+        .cornerRadius(12.0)
+        .listRowSeparator(.hidden)
 
-        VStack(alignment: .leading) {
-          Text("Description")
-            .font(.caption)
-          TextField("Content", text: $todo.content, prompt: nil)
-        }.padding()
-          .background(.thinMaterial)
-          .cornerRadius(12.0)
-
-
-        VStack(alignment: .leading) {
-          Text("Link")
-            .font(.caption)
-          TextField("Link", text: $link, prompt: nil)
-        }.padding()
-          .background(.thinMaterial)
-          .cornerRadius(12.0)
-
-        Toggle("Toggle", isOn: $todo.complete)
-        HStack {
-          Button(action: {
-            dismiss()
-          }) {
-            Text("dismiss")
-          }
-
-          Button(action: {
-            delete()
-          }) {
-            Text("delete")
-          }
-        }
-        Spacer()
-      }.onChange(of: todo) { newValue in
-        store.insert(newValue)
-      }.onChange(of: link) { newValue in
-        todo.link = newValue
+      VStack(alignment: .leading) {
+        Text("Description")
+          .font(.caption)
+        TextField("Content", text: $todo.content, prompt: nil)
       }.padding()
-        .onAppear {
-          link = todo.link ?? ""
-        }
+        .background(.thinMaterial)
+        .cornerRadius(12.0)
+        .listRowSeparator(.hidden)
 
+
+      VStack(alignment: .leading) {
+        Text("Link")
+          .font(.caption)
+        TextField("Link", text: $link, prompt: nil)
+      }.padding()
+        .background(.thinMaterial)
+        .cornerRadius(12.0)
+        .listRowSeparator(.hidden)
+
+      Toggle("Complete", isOn: $todo.complete)
+      Button(action: {
+        store.insert(todo)
+        dismiss()
+      }) {
+        Text("Create")
+      }.buttonStyle(BorderedProminentButtonStyle())
+        .frame(maxWidth: .infinity)
+        .listRowSeparator(.hidden)
+
+      Button(action: {
+        delete()
+      }) {
+        Text("Delete")
+      }.buttonStyle(BorderedButtonStyle())
+        .frame(maxWidth: .infinity)
+      .listRowSeparator(.hidden)
+    }.onChange(of: link) { newValue in
+      todo.link = newValue
     }
+    .onAppear {
+      link = todo.link ?? ""
+    }.listStyle(PlainListStyle())
+  }
 
   func delete() {
     store.remove(with: todo.id)
@@ -78,7 +82,7 @@ struct EditView: View {
 }
 
 struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditView(todo: Todo(id: "1", title: "testing", content: "1", complete: false))
-    }
+  static var previews: some View {
+    EditView(todo: Todo(id: "1", title: "testing", content: "1", complete: false))
+  }
 }

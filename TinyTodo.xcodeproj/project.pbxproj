@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		34192B0227AD75FE001E5902 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0127AD75FE001E5902 /* EditView.swift */; };
 		34192B0427AD7D34001E5902 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0327AD7D34001E5902 /* Store.swift */; };
-		34192B0627B1841E001E5902 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0527B1841E001E5902 /* Sidebar.swift */; };
 		348ACDDE27ACD2D500170D24 /* TinyTodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */; };
 		348ACDE027ACD2D500170D24 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDF27ACD2D500170D24 /* TodayView.swift */; };
 		348ACDE227ACD2D600170D24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 348ACDE127ACD2D600170D24 /* Assets.xcassets */; };
@@ -22,6 +21,7 @@
 		348ACE0C27ACD2EE00170D24 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE0927ACD2EE00170D24 /* Extensions.swift */; };
 		348ACE0F27AD674A00170D24 /* TodoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE0E27AD674A00170D24 /* TodoRow.swift */; };
 		348ACE1127AD68C900170D24 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE1027AD68C900170D24 /* Model.swift */; };
+		34D0ECA127B3161700EB6A3E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D0ECA027B3161700EB6A3E /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 /* Begin PBXFileReference section */
 		34192B0127AD75FE001E5902 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		34192B0327AD7D34001E5902 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		34192B0527B1841E001E5902 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		348ACDDA27ACD2D500170D24 /* TinyTodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyTodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyTodoApp.swift; sourceTree = "<group>"; };
 		348ACDDF27ACD2D500170D24 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		348ACE0D27ACD2FA00170D24 /* TinyTodo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TinyTodo.entitlements; sourceTree = "<group>"; };
 		348ACE0E27AD674A00170D24 /* TodoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRow.swift; sourceTree = "<group>"; };
 		348ACE1027AD68C900170D24 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		34D0ECA027B3161700EB6A3E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,17 +113,13 @@
 			children = (
 				348ACE0D27ACD2FA00170D24 /* TinyTodo.entitlements */,
 				348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */,
-				34192B0527B1841E001E5902 /* Sidebar.swift */,
 				348ACDDF27ACD2D500170D24 /* TodayView.swift */,
 				34192B0127AD75FE001E5902 /* EditView.swift */,
 				348ACE0E27AD674A00170D24 /* TodoRow.swift */,
-				348ACE0827ACD2EE00170D24 /* Cache.swift */,
-				348ACE0927ACD2EE00170D24 /* Extensions.swift */,
-				348ACE0727ACD2EE00170D24 /* SimpleStore.swift */,
+				34D0ECA027B3161700EB6A3E /* Settings.swift */,
+				34D0EC9F27B2FF6900EB6A3E /* Storage */,
 				348ACDE127ACD2D600170D24 /* Assets.xcassets */,
 				348ACDE327ACD2D600170D24 /* Preview Content */,
-				348ACE1027AD68C900170D24 /* Model.swift */,
-				34192B0327AD7D34001E5902 /* Store.swift */,
 			);
 			path = TinyTodo;
 			sourceTree = "<group>";
@@ -151,6 +147,18 @@
 				348ACDFA27ACD2D700170D24 /* TinyTodoUITestsLaunchTests.swift */,
 			);
 			path = TinyTodoUITests;
+			sourceTree = "<group>";
+		};
+		34D0EC9F27B2FF6900EB6A3E /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				348ACE1027AD68C900170D24 /* Model.swift */,
+				34192B0327AD7D34001E5902 /* Store.swift */,
+				348ACE0727ACD2EE00170D24 /* SimpleStore.swift */,
+				348ACE0827ACD2EE00170D24 /* Cache.swift */,
+				348ACE0927ACD2EE00170D24 /* Extensions.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,11 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34192B0627B1841E001E5902 /* Sidebar.swift in Sources */,
 				348ACE1127AD68C900170D24 /* Model.swift in Sources */,
 				348ACE0C27ACD2EE00170D24 /* Extensions.swift in Sources */,
 				34192B0227AD75FE001E5902 /* EditView.swift in Sources */,
 				34192B0427AD7D34001E5902 /* Store.swift in Sources */,
+				34D0ECA127B3161700EB6A3E /* Settings.swift in Sources */,
 				348ACE0A27ACD2EE00170D24 /* SimpleStore.swift in Sources */,
 				348ACE0F27AD674A00170D24 /* TodoRow.swift in Sources */,
 				348ACDE027ACD2D500170D24 /* TodayView.swift in Sources */,

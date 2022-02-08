@@ -35,17 +35,22 @@ enum TodoListType: Int, CaseIterable {
     }
   }
 }
+
 class Store: ObservableObject {
+
   @Published var showModal: Bool = false
-  @Published var todoStore: SimpleStore<Todo> = SimpleStore(filename: "todoStore")
+  @Published var todoStore: SimpleStore<Todo> = SimpleStore<Todo>(filename: "todoStore")
   @Published var type: TodoListType = .work
-  private var cancellable: AnyCancellable?
+  @Published var didUpdate: String = ""
+
+  private var cancellables: [AnyCancellable] = []
+  private var storeCancel: AnyCancellable?
 
   init() {
-    cancellable = $type.sink { newValue in
-      print(newValue)
-      self.todoStore = SimpleStore(filename: newValue.storeName())
-    }
+    // Select the correct database
+    cancellables.append($type.sink { newValue in
+      self.todoStore = SimpleStore<Todo>(filename: newValue.storeName())
+    })
   }
 }
 
@@ -56,6 +61,9 @@ extension Store {
     todoStore.removeAll()
   }
 
+  func publish() {
+    self.didUpdate = UUID().uuidString
+  }
 
 //  private func importJSON() {
 //    guard UserDefaults.loadedJSON == false else {
@@ -108,14 +116,18 @@ extension Store {
 extension Store {
 
   func insert(_ todo: Todo) {
-
     todoStore.insert(updateModifiedDate(todo))
     todoStore.save()
+    publish()
   }
-//
-//  func insert(_ todos: [Todo]) {
-//    todos.insert(todos)
-//  }
+
+  func toggleComplete(_ todo: Todo) {
+    var copy = todo
+    copy.complete = !todo.complete
+    todoStore.insert(updateModifiedDate(copy))
+    todoStore.save()
+    publish()
+  }
 
 }
 

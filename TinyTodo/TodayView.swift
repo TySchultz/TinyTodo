@@ -13,69 +13,62 @@ struct TodayView: View {
   @State private var animationAmount = 1.0
   @State var allItems: [Todo] = []
   @State var editTodo: Todo?
-
-  @State var undoOption: Todo?
-
-  @State var showingAllDays: Bool = false
-  @State var homeView: Bool = false
-  @State var workView: Bool = false
-  @State var segmentedControl: Int = 0
+  @State private var cancellable: AnyCancellable?
+  @State var showSettings: Bool = false
   var body: some View {
-      HStack {
-        list
+    list
+    .sheet(item: $editTodo, onDismiss: nil, content: { item in
+      EditView(todo: item)
+    })
+    .sheet(isPresented: $showSettings, content: {
+      Settings()
+    })
+    .onChange(of: store.type, perform: { newValue in
+      update()
+    })
+    .onChange(of: store.didUpdate, perform: { newValue in
+      withAnimation {
+        update()
       }
-      .sheet(item: $editTodo, onDismiss: {
-        update()
-      }, content: { item in
-        EditView(todo: item)
-      })
-      .onChange(of: undoOption, perform: { newValue in
-        hideTodo(newValue: newValue)
-      })
-      .onChange(of: store.type, perform: { newValue in
-        update()
-      })
-      .onAppear {
-        update()
-
-      }.toolbar {
+    })
+    .onAppear {
+      update()
+    }.navigationTitle(formattedDate())
+      .toolbar {
         ToolbarItem(placement: .bottomBar) {
-          HStack {
-
-            Picker("View", selection: $store.type) {
-              ForEach(TodoListType.allCases, id: \.self) { type in
-                Text(type.displayText()).tag(type.rawValue).badge(3)
-              }
-            }.pickerStyle(.segmented)
-            Spacer()
-            Button(action:  {
-              addRow()
-            }) {
-              Label("Add", systemImage: "plus")
-            }
-          }
-
+          Button(action: {
+            showSettings.toggle()
+          }) {
+            Label("Settings", systemImage: "gear")
+          }.tint(.primary)
         }
-      }.navigationTitle(formattedDate)
+        ToolbarItem(placement: .bottomBar) {
+          Button(action: {
+            print("Calendar")
+          }) {
+            Label("Calendar", systemImage: "calendar")
+          }.tint(.primary)
+        }
+        ToolbarItem(placement: .bottomBar) {
+          Spacer()
+        }
+        ToolbarItem(placement: .bottomBar) {
+          Button(action: {
+            addRow()
+          }) {
+            Label("Add", systemImage: "plus.app")
+          }.tint(.primary)
+        }
+      }
   }
+}
+
+// - MARK: UI
+extension TodayView {
 
   var list: some View {
     ScrollView {
       VStack(spacing: 0) {
-        HStack {
-          Spacer()
-          if let undo = undoOption {
-            Button(action: {
-              withAnimation {
-                store.insert(undo)
-                undoOption = nil
-                update()
-              }
-            }) {
-              Label("Undo", systemImage: "arrow.uturn.backward")
-            }
-          }
-        }
         todoGroup
         completeGroup
         Spacer()
@@ -83,134 +76,104 @@ struct TodayView: View {
     }.transition(.scale)
   }
 
-  var formattedDate: String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "eeee - MMMM dd, YYYY"
-    return formatter.string(from: Date())
+
+  var todoGroup: some View {
+    VStack(spacing: 0) {
+      ForEach(allItems.filter({$0.complete == false}), id: \.self) { todo in
+        HStack {
+          TodoRow(todo: todo)
+            .contentShape(Rectangle())
+            .onTapGesture {
+              toggle(todo: todo)
+            }.contextMenu {
+              Button {
+                editTodo = todo
+              } label: {
+                Label("Edit", systemImage: "pencil.and.outline")
+              }
+
+              Button {
+                remove(todo)
+              } label: {
+                Label("Delete", systemImage: "pencil.and.outline")
+              }
+            }
+          Button(action: {
+            editTodo = todo
+          }) {
+            Text("View")
+          }
+          .padding(.vertical, 6)
+          .padding(.horizontal)
+          .buttonStyle(PlainButtonStyle())
+          .font(.subheadline)
+          .foregroundColor(.blue)
+          .background(Capsule(style: .continuous).foregroundColor(Color(UIColor.systemBackground)))
+        }.padding(.trailing)
+      }.transition(.scale)
+
+    }.background(.ultraThinMaterial)
+      .cornerRadius(12.0).padding()
   }
 
-
-  func hideTodo(newValue: Todo?) {
-    Task {
-      do {
-        print(newValue)
-        guard newValue != nil else {
-          return
-        }
-        try? await Task.sleep(nanoseconds: 2_500_000_000)
-        withAnimation {
-          undoOption = nil
-        }
-      } catch {
-        print(error)
-      }
-    }
-
-  }
-
-var todoGroup: some View {
-  VStack(spacing: 0) {
-    ForEach(allItems.filter({$0.complete == false}), id: \.self) { todo in
-//#if targetEnvironment(macCatalyst)
-//
-      HStack {
+  var completeGroup: some View {
+    VStack(spacing: 0) {
+      ForEach(allItems.filter({$0.complete}).sorted(by: {$0.modifiedDate > $1.modifiedDate}), id: \.self) { todo in
         TodoRow(todo: todo)
           .contentShape(Rectangle())
           .onTapGesture {
             toggle(todo: todo)
-          }.contextMenu {
-            Button {
-              editTodo = todo
-            } label: {
-              Label("Edit", systemImage: "pencil.and.outline")
-            }
-
-            Button {
-              remove(todo)
-            } label: {
-              Label("Delete", systemImage: "pencil.and.outline")
-            }
+          }.onLongPressGesture {
+            editTodo = todo
           }
-        Button(action: {
-          editTodo = todo
-        }) {
-          Text("View")
+      }.transition(.scale)
+    }.cornerRadius(12.0).padding()
+  }
+
+  var toolbar: some View {
+    HStack {
+      Picker("View", selection: $store.type) {
+        ForEach(TodoListType.allCases, id: \.self) { type in
+          Text(type.displayText()).tag(type.rawValue).badge(3)
         }
-        .padding(.vertical, 6)
-        .padding(.horizontal)
-        .buttonStyle(PlainButtonStyle())
-        .font(.subheadline)
-        .foregroundColor(.blue)
-        .background(Capsule(style: .continuous).foregroundColor(Color(UIColor.systemBackground)))
-      }.padding(.trailing)
-//#elseif os(iOS)
-//
-//      TodoRow(todo: todo)
-//        .contentShape(Rectangle())
-//        .onTapGesture {
-//          toggle(todo: todo)
-//        }.contextMenu {
-//          Button {
-//            editTodo = todo
-//          } label: {
-//            Label("Edit", systemImage: "pencil.and.outline")
-//          }
-//
-//          Button {
-//            remove(todo)
-//          } label: {
-//            Label("Delete", systemImage: "pencil.and.outline")
-//          }
-//        }
-//#endif
+      }.pickerStyle(.inline)
 
-    }.transition(.scale)
-
-  }.background(.ultraThinMaterial)
-    .cornerRadius(12.0).padding()
-
-}
-var completeGroup: some View {
-  VStack(spacing: 0) {
-    ForEach(allItems.filter({$0.complete}).sorted(by: {$0.modifiedDate > $1.modifiedDate}), id: \.self) { todo in
-      TodoRow(todo: todo)
-        .contentShape(Rectangle())
-        .onTapGesture {
-          toggle(todo: todo)
-        }.onLongPressGesture {
-          editTodo = todo
-        }
-
-    }.transition(.scale)
-  }.cornerRadius(12.0).padding()
-}
-
-func addRow() {
-  editTodo = Todo(id: UUID().uuidString, title: "", content: "", complete: false)
-}
-
-func toggle(todo: Todo) {
-  withAnimation {
-    var copy = todo
-    copy.complete = !todo.complete
-    store.insert(copy)
-    update()
-
+      Button(action: addRow) {
+        Label("Add", systemImage: "plus.app")
+      }
+    }.padding()
   }
 }
 
 
-func remove(_ todo: Todo) {
-  withAnimation {
-    store.remove(with: todo.id)
-    update()
-    undoOption = todo
-  }
-}
+// - MARK: Utilities
+extension TodayView {
 
-func update() {
-  allItems = store.allValues().sorted(by: {$0.modifiedDate < $1.modifiedDate})
-}
+  func addRow() {
+     editTodo = Todo(id: UUID().uuidString, title: "", content: "", complete: false)
+  }
+
+  func toggle(todo: Todo) {
+    withAnimation {
+      store.toggleComplete(todo)
+    }
+  }
+
+  func remove(_ todo: Todo) {
+      store.remove(with: todo.id)
+  }
+
+  func update() {
+//    withAnimation {
+      allItems = store.allValues().sorted(by: {$0.modifiedDate < $1.modifiedDate})
+//    }
+  }
+
+  func formattedDate() -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "eeee - MMMM dd, YYYY"
+    return formatter.string(from: Date())
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {

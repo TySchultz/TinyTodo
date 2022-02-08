@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Todo: Model, Codable, Hashable, Identifiable {
   var id: String
   var title: String

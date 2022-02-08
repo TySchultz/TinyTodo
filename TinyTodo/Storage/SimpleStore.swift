@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Combine
 /// Protocol representing the model used in the store
 public protocol Model: Identifiable & Codable where ID: Codable {
 
