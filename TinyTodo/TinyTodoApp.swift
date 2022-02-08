@@ -11,7 +11,7 @@ import SwiftUI
 struct TinyTodoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+          TodayView().environmentObject(Store())
         }
     }
 }

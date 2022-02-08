@@ -7,13 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34192B0227AD75FE001E5902 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0127AD75FE001E5902 /* EditView.swift */; };
+		34192B0427AD7D34001E5902 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0327AD7D34001E5902 /* Store.swift */; };
+		34192B0627B1841E001E5902 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0527B1841E001E5902 /* Sidebar.swift */; };
 		348ACDDE27ACD2D500170D24 /* TinyTodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */; };
-		348ACDE027ACD2D500170D24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDF27ACD2D500170D24 /* ContentView.swift */; };
+		348ACDE027ACD2D500170D24 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDF27ACD2D500170D24 /* TodayView.swift */; };
 		348ACDE227ACD2D600170D24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 348ACDE127ACD2D600170D24 /* Assets.xcassets */; };
 		348ACDE527ACD2D600170D24 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 348ACDE427ACD2D600170D24 /* Preview Assets.xcassets */; };
 		348ACDEF27ACD2D700170D24 /* TinyTodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDEE27ACD2D700170D24 /* TinyTodoTests.swift */; };
 		348ACDF927ACD2D700170D24 /* TinyTodoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDF827ACD2D700170D24 /* TinyTodoUITests.swift */; };
 		348ACDFB27ACD2D700170D24 /* TinyTodoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDFA27ACD2D700170D24 /* TinyTodoUITestsLaunchTests.swift */; };
+		348ACE0A27ACD2EE00170D24 /* SimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE0727ACD2EE00170D24 /* SimpleStore.swift */; };
+		348ACE0B27ACD2EE00170D24 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE0827ACD2EE00170D24 /* Cache.swift */; };
+		348ACE0C27ACD2EE00170D24 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE0927ACD2EE00170D24 /* Extensions.swift */; };
+		348ACE0F27AD674A00170D24 /* TodoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE0E27AD674A00170D24 /* TodoRow.swift */; };
+		348ACE1127AD68C900170D24 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACE1027AD68C900170D24 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		34192B0127AD75FE001E5902 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		34192B0327AD7D34001E5902 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		34192B0527B1841E001E5902 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		348ACDDA27ACD2D500170D24 /* TinyTodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyTodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyTodoApp.swift; sourceTree = "<group>"; };
-		348ACDDF27ACD2D500170D24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		348ACDDF27ACD2D500170D24 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		348ACDE127ACD2D600170D24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		348ACDE427ACD2D600170D24 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		348ACDEA27ACD2D700170D24 /* TinyTodoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyTodoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +55,12 @@
 		348ACDF427ACD2D700170D24 /* TinyTodoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyTodoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		348ACDF827ACD2D700170D24 /* TinyTodoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyTodoUITests.swift; sourceTree = "<group>"; };
 		348ACDFA27ACD2D700170D24 /* TinyTodoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyTodoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		348ACE0727ACD2EE00170D24 /* SimpleStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleStore.swift; sourceTree = "<group>"; };
+		348ACE0827ACD2EE00170D24 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		348ACE0927ACD2EE00170D24 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		348ACE0D27ACD2FA00170D24 /* TinyTodo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TinyTodo.entitlements; sourceTree = "<group>"; };
+		348ACE0E27AD674A00170D24 /* TodoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRow.swift; sourceTree = "<group>"; };
+		348ACE1027AD68C900170D24 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +111,19 @@
 		348ACDDC27ACD2D500170D24 /* TinyTodo */ = {
 			isa = PBXGroup;
 			children = (
+				348ACE0D27ACD2FA00170D24 /* TinyTodo.entitlements */,
 				348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */,
-				348ACDDF27ACD2D500170D24 /* ContentView.swift */,
+				34192B0527B1841E001E5902 /* Sidebar.swift */,
+				348ACDDF27ACD2D500170D24 /* TodayView.swift */,
+				34192B0127AD75FE001E5902 /* EditView.swift */,
+				348ACE0E27AD674A00170D24 /* TodoRow.swift */,
+				348ACE0827ACD2EE00170D24 /* Cache.swift */,
+				348ACE0927ACD2EE00170D24 /* Extensions.swift */,
+				348ACE0727ACD2EE00170D24 /* SimpleStore.swift */,
 				348ACDE127ACD2D600170D24 /* Assets.xcassets */,
 				348ACDE327ACD2D600170D24 /* Preview Content */,
+				348ACE1027AD68C900170D24 /* Model.swift */,
+				34192B0327AD7D34001E5902 /* Store.swift */,
 			);
 			path = TinyTodo;
 			sourceTree = "<group>";
@@ -257,7 +283,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				348ACDE027ACD2D500170D24 /* ContentView.swift in Sources */,
+				34192B0627B1841E001E5902 /* Sidebar.swift in Sources */,
+				348ACE1127AD68C900170D24 /* Model.swift in Sources */,
+				348ACE0C27ACD2EE00170D24 /* Extensions.swift in Sources */,
+				34192B0227AD75FE001E5902 /* EditView.swift in Sources */,
+				34192B0427AD7D34001E5902 /* Store.swift in Sources */,
+				348ACE0A27ACD2EE00170D24 /* SimpleStore.swift in Sources */,
+				348ACE0F27AD674A00170D24 /* TodoRow.swift in Sources */,
+				348ACDE027ACD2D500170D24 /* TodayView.swift in Sources */,
+				348ACE0B27ACD2EE00170D24 /* Cache.swift in Sources */,
 				348ACDDE27ACD2D500170D24 /* TinyTodoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +450,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TinyTodo/TinyTodo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TinyTodo/Preview Content\"";
@@ -425,6 +460,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -434,6 +470,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.TinyTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -445,6 +482,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TinyTodo/TinyTodo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TinyTodo/Preview Content\"";
@@ -454,6 +492,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -463,6 +502,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.TinyTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
