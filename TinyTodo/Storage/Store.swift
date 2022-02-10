@@ -51,12 +51,12 @@ class Store: ObservableObject {
     // Select the correct database
     cancellables.append($type.sink { newValue in
       self.todoStore = SimpleStore<Todo>(filename: newValue.storeName())
+      self.publish()
     })
 
-//    storeCancel = $currentDate.sink(receiveValue: { newDate in
-//      print(newDate)
-//      self.publish()
-//    })
+    cancellables.append($currentDate.sink(receiveValue: { newDate in
+      self.publish()
+    }))
   }
 
   func currentDateFormatted() -> String {

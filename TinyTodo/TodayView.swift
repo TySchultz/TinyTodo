@@ -24,61 +24,64 @@ struct TodayView: View {
     .sheet(isPresented: $showSettings, content: {
       Settings()
     })
-    .onChange(of: store.type, perform: { newValue in
-      update()
-    })
-    .onChange(of: store.currentDate, perform: { newValue in
-      update()
-    })
-    .onChange(of: store.didUpdate, perform: { newValue in
-      withAnimation {
-        update()
-      }
-    })
-    .onAppear {
-      update()
-    }.navigationTitle(formattedDate())
+    .navigationTitle(formattedDate())
       .toolbar {
-        ToolbarItem(placement: .bottomBar) {
-          Button(action: {
-            showSettings.toggle()
-          }) {
-            Label("Settings", systemImage: "gear")
-          }.tint(.primary)
-        }
-        ToolbarItem(placement: .bottomBar) {
-          Button(action: {
-              store.changeDate(direction: .backwards)
-          }) {
-            Label("Back A Day", systemImage: "chevron.left")
-          }.tint(.primary)
-        }
-        ToolbarItem(placement: .bottomBar) {
-          Button(action: {
-              store.changeDate(direction: .forward)
-          }) {
-            Label("Forward A Day", systemImage: "chevron.right")
-          }.tint(.primary)
-        }
-        ToolbarItem(placement: .bottomBar) {
-          Text(store.currentDateFormatted())
-        }
+        settingsButton
+        backwardButton
+        forwardButton
+        toolbarDate
         ToolbarItem(placement: .bottomBar) {
           Spacer()
         }
-        ToolbarItem(placement: .bottomBar) {
-          Button(action: {
-            addRow()
-          }) {
-            Label("Add", systemImage: "plus.app")
-          }.tint(.primary)
-        }
+        addButton
       }
   }
 }
 
 // - MARK: UI
 extension TodayView {
+  var settingsButton: some ToolbarContent {
+    ToolbarItem(placement: .bottomBar) {
+      Button(action: {
+        showSettings.toggle()
+      }) {
+        Label("Settings", systemImage: "gear")
+      }.tint(.primary)
+    }
+  }
+  var backwardButton: some ToolbarContent {
+    ToolbarItem(placement: .bottomBar) {
+      Button(action: {
+        store.changeDate(direction: .backwards)
+      }) {
+        Label("Back A Day", systemImage: "chevron.left")
+      }.tint(.primary)
+    }
+  }
+  var forwardButton: some ToolbarContent {
+    ToolbarItem(placement: .bottomBar) {
+      Button(action: {
+        store.changeDate(direction: .forward)
+      }) {
+        Label("Forward A Day", systemImage: "chevron.right")
+      }.tint(.primary)
+    }
+  }
+  var toolbarDate: some ToolbarContent {
+    ToolbarItem(placement: .bottomBar) {
+      Text(store.currentDateFormatted())
+    }
+  }
+
+  var addButton: some ToolbarContent {
+    ToolbarItem(placement: .bottomBar) {
+      Button(action: {
+        addRow()
+      }) {
+        Label("Add", systemImage: "plus.app")
+      }.tint(.primary)
+    }
+  }
 
   var list: some View {
     ScrollView {
@@ -90,58 +93,12 @@ extension TodayView {
     }.transition(.scale)
   }
 
-
   var todoGroup: some View {
-    VStack(spacing: 0) {
-      ForEach(allItems.filter({$0.complete == false}), id: \.self) { todo in
-        HStack {
-          TodoRow(todo: todo)
-            .contentShape(Rectangle())
-            .onTapGesture {
-              toggle(todo: todo)
-            }.contextMenu {
-              Button {
-                editTodo = todo
-              } label: {
-                Label("Edit", systemImage: "pencil.and.outline")
-              }
-
-              Button {
-                remove(todo)
-              } label: {
-                Label("Delete", systemImage: "pencil.and.outline")
-              }
-            }
-          Button(action: {
-            editTodo = todo
-          }) {
-            Text("View")
-          }
-          .padding(.vertical, 6)
-          .padding(.horizontal)
-          .buttonStyle(PlainButtonStyle())
-          .font(.subheadline)
-          .foregroundColor(.blue)
-          .background(Capsule(style: .continuous).foregroundColor(Color(UIColor.systemBackground)))
-        }.padding(.trailing)
-      }.transition(.scale)
-
-    }.background(.ultraThinMaterial)
-      .cornerRadius(12.0).padding()
+    ActiveList(editTodo: self.$editTodo)
   }
 
   var completeGroup: some View {
-    VStack(spacing: 0) {
-      ForEach(allItems.filter({$0.complete}).sorted(by: {$0.modifiedDate > $1.modifiedDate}), id: \.self) { todo in
-        TodoRow(todo: todo)
-          .contentShape(Rectangle())
-          .onTapGesture {
-            toggle(todo: todo)
-          }.onLongPressGesture {
-            editTodo = todo
-          }
-      }.transition(.scale)
-    }.cornerRadius(12.0).padding()
+    CompleteList(editTodo: self.$editTodo)
   }
 
   var toolbar: some View {
@@ -165,20 +122,6 @@ extension TodayView {
 
   func addRow() {
      editTodo = Todo(id: UUID().uuidString, title: "", content: "", complete: false)
-  }
-
-  func toggle(todo: Todo) {
-    withAnimation {
-      store.toggleComplete(todo)
-    }
-  }
-
-  func remove(_ todo: Todo) {
-      store.remove(with: todo.id)
-  }
-
-  func update() {
-      allItems = store.allValues().sorted(by: {$0.modifiedDate < $1.modifiedDate})
   }
 
   func formattedDate() -> String {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		340E874A27B4A1690087A571 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 340E874927B4A1690087A571 /* Algorithms */; };
+		340E874C27B4A9000087A571 /* ActiveList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E874B27B4A9000087A571 /* ActiveList.swift */; };
+		340E874E27B4B0770087A571 /* CompleteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E874D27B4B0770087A571 /* CompleteList.swift */; };
 		34192B0227AD75FE001E5902 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0127AD75FE001E5902 /* EditView.swift */; };
 		34192B0427AD7D34001E5902 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0327AD7D34001E5902 /* Store.swift */; };
 		348ACDDE27ACD2D500170D24 /* TinyTodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		340E874B27B4A9000087A571 /* ActiveList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveList.swift; sourceTree = "<group>"; };
+		340E874D27B4B0770087A571 /* CompleteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteList.swift; sourceTree = "<group>"; };
 		34192B0127AD75FE001E5902 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		34192B0327AD7D34001E5902 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		348ACDDA27ACD2D500170D24 /* TinyTodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyTodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +120,8 @@
 				348ACE0D27ACD2FA00170D24 /* TinyTodo.entitlements */,
 				348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */,
 				348ACDDF27ACD2D500170D24 /* TodayView.swift */,
+				340E874B27B4A9000087A571 /* ActiveList.swift */,
+				340E874D27B4B0770087A571 /* CompleteList.swift */,
 				34192B0127AD75FE001E5902 /* EditView.swift */,
 				348ACE0E27AD674A00170D24 /* TodoRow.swift */,
 				34D0ECA027B3161700EB6A3E /* Settings.swift */,
@@ -303,6 +309,8 @@
 				348ACE0C27ACD2EE00170D24 /* Extensions.swift in Sources */,
 				34192B0227AD75FE001E5902 /* EditView.swift in Sources */,
 				34192B0427AD7D34001E5902 /* Store.swift in Sources */,
+				340E874E27B4B0770087A571 /* CompleteList.swift in Sources */,
+				340E874C27B4A9000087A571 /* ActiveList.swift in Sources */,
 				34D0ECA127B3161700EB6A3E /* Settings.swift in Sources */,
 				348ACE0A27ACD2EE00170D24 /* SimpleStore.swift in Sources */,
 				348ACE0F27AD674A00170D24 /* TodoRow.swift in Sources */,
