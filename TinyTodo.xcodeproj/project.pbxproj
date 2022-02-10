@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340E874A27B4A1690087A571 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 340E874927B4A1690087A571 /* Algorithms */; };
 		34192B0227AD75FE001E5902 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0127AD75FE001E5902 /* EditView.swift */; };
 		34192B0427AD7D34001E5902 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B0327AD7D34001E5902 /* Store.swift */; };
 		348ACDDE27ACD2D500170D24 /* TinyTodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ACDDD27ACD2D500170D24 /* TinyTodoApp.swift */; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				340E874A27B4A1690087A571 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +179,9 @@
 			dependencies = (
 			);
 			name = TinyTodo;
+			packageProductDependencies = (
+				340E874927B4A1690087A571 /* Algorithms */,
+			);
 			productName = TinyTodo;
 			productReference = 348ACDDA27ACD2D500170D24 /* TinyTodo.app */;
 			productType = "com.apple.product-type.application";
@@ -249,6 +254,9 @@
 				Base,
 			);
 			mainGroup = 348ACDD127ACD2D500170D24;
+			packageReferences = (
+				340E874827B4A1690087A571 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 348ACDDB27ACD2D500170D24 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -479,6 +487,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.TinyTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -511,6 +520,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.TinyTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -653,6 +663,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		340E874827B4A1690087A571 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		340E874927B4A1690087A571 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 340E874827B4A1690087A571 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 348ACDD227ACD2D500170D24 /* Project object */;
 }

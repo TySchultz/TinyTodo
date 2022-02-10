@@ -42,6 +42,7 @@ class Store: ObservableObject {
   @Published var todoStore: SimpleStore<Todo> = SimpleStore<Todo>(filename: "todoStore")
   @Published var type: TodoListType = .work
   @Published var didUpdate: String = ""
+  @Published var currentDate: Date = Date()
 
   private var cancellables: [AnyCancellable] = []
   private var storeCancel: AnyCancellable?
@@ -51,12 +52,37 @@ class Store: ObservableObject {
     cancellables.append($type.sink { newValue in
       self.todoStore = SimpleStore<Todo>(filename: newValue.storeName())
     })
+
+//    storeCancel = $currentDate.sink(receiveValue: { newDate in
+//      print(newDate)
+//      self.publish()
+//    })
+  }
+
+  func currentDateFormatted() -> String {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "eeee - MMMM dd"
+      return formatter.string(from: currentDate)
   }
 }
 
 // - MARK: Utility
 
+enum DateDirection {
+  case forward
+  case backwards
+}
+
 extension Store {
+  func changeDate(direction: DateDirection) {
+    switch direction {
+      case .forward:
+        self.currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+      case .backwards:
+        self.currentDate = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
+    }
+  }
+
   func clearData() {
     todoStore.removeAll()
   }
@@ -65,30 +91,30 @@ extension Store {
     self.didUpdate = UUID().uuidString
   }
 
-//  private func importJSON() {
-//    guard UserDefaults.loadedJSON == false else {
-//      return
-//    }
-//    UserDefaults.loadedJSON.toggle()
-//    if let path = Bundle.main.path(forResource: "SingleJSON", ofType: "json") {
-//      do {
-//        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-//
-//        let decoder = JSONDecoder()
-//
-//        do {
-//          let jsonStore = try decoder.decode(jsonStore.self, from: data)
-//          self.insert(jsonStore.weeks)
-//          self.insert(jsonStore.days)
-//          self.insert(jsonStore.exercises)
-//        } catch {
-//          print(error)
-//        }
-//      } catch {
-//        // handle error
-//      }
-//    }
-//  }
+  //  private func importJSON() {
+  //    guard UserDefaults.loadedJSON == false else {
+  //      return
+  //    }
+  //    UserDefaults.loadedJSON.toggle()
+  //    if let path = Bundle.main.path(forResource: "SingleJSON", ofType: "json") {
+  //      do {
+  //        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+  //
+  //        let decoder = JSONDecoder()
+  //
+  //        do {
+  //          let jsonStore = try decoder.decode(jsonStore.self, from: data)
+  //          self.insert(jsonStore.weeks)
+  //          self.insert(jsonStore.days)
+  //          self.insert(jsonStore.exercises)
+  //        } catch {
+  //          print(error)
+  //        }
+  //      } catch {
+  //        // handle error
+  //      }
+  //    }
+  //  }
 
   func updateModifiedDate(_ todo: Todo, now: Date = Date()) -> Todo {
     var copy = todo
@@ -107,7 +133,11 @@ extension Store {
   }
 
   func allValues() -> [Todo] {
-    return todoStore.values()
+    return todoStore.values().filter({ sameDays(lhs: $0.creationDate, rhs: self.currentDate) })
+  }
+
+  private func sameDays(lhs: Date, rhs: Date) -> Bool {
+    return Calendar.current.isDate(lhs, inSameDayAs: rhs)
   }
 }
 

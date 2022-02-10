@@ -15,6 +15,7 @@ struct TodayView: View {
   @State var editTodo: Todo?
   @State private var cancellable: AnyCancellable?
   @State var showSettings: Bool = false
+  @State var showCalendar: Bool = false
   var body: some View {
     list
     .sheet(item: $editTodo, onDismiss: nil, content: { item in
@@ -24,6 +25,9 @@ struct TodayView: View {
       Settings()
     })
     .onChange(of: store.type, perform: { newValue in
+      update()
+    })
+    .onChange(of: store.currentDate, perform: { newValue in
       update()
     })
     .onChange(of: store.didUpdate, perform: { newValue in
@@ -44,10 +48,20 @@ struct TodayView: View {
         }
         ToolbarItem(placement: .bottomBar) {
           Button(action: {
-            print("Calendar")
+              store.changeDate(direction: .backwards)
           }) {
-            Label("Calendar", systemImage: "calendar")
+            Label("Back A Day", systemImage: "chevron.left")
           }.tint(.primary)
+        }
+        ToolbarItem(placement: .bottomBar) {
+          Button(action: {
+              store.changeDate(direction: .forward)
+          }) {
+            Label("Forward A Day", systemImage: "chevron.right")
+          }.tint(.primary)
+        }
+        ToolbarItem(placement: .bottomBar) {
+          Text(store.currentDateFormatted())
         }
         ToolbarItem(placement: .bottomBar) {
           Spacer()
@@ -164,9 +178,7 @@ extension TodayView {
   }
 
   func update() {
-//    withAnimation {
       allItems = store.allValues().sorted(by: {$0.modifiedDate < $1.modifiedDate})
-//    }
   }
 
   func formattedDate() -> String {
